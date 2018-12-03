@@ -1,8 +1,12 @@
 package com.ellisvlad.aoc2018;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+import com.ellisvlad.aoc2018.day1.ChallengeMain;
 
 public class Main {
 
@@ -44,7 +48,27 @@ public class Main {
 		System.out.println("==========================================");
 		System.out.println();
 		
-		
+		BufferedReader inputFile = getInput(pickedDay);
+
+		try {
+			new ChallengeMain().runChallenge(inputFile);
+		} catch (Exception e) {
+			System.err.println("Failed to run challenge for day " + pickedDay);
+			e.printStackTrace();
+			System.exit(3);
+		}
+	}
+
+	public static BufferedReader getInput(int day) {
+			try {
+				return new BufferedReader(new FileReader("inputs/day" + day + ".txt"));
+			} catch (FileNotFoundException e) {
+				System.err.println("Could not open input file \"./inputs/day" + day + ".txt\"");
+				e.printStackTrace();
+				System.exit(2);
+			}
+
+			return null;
 	}
 
 }
