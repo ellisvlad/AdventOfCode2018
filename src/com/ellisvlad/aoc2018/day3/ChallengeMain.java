@@ -12,8 +12,8 @@ public class ChallengeMain extends DayChallenge {
 
 	@Override
 	public void runChallenge(BufferedReader input) throws Exception {
-		int[] fabric = new int[1000 * 1000];
-		int[] fabricIds = new int[1000 * 1000];
+		int[][] fabric = new int[1000][1000];
+		int[][] fabricIds = new int[1000][1000];
 		Set<Integer> uniqueIds = new HashSet<>();
 		
 		Pattern regex = Pattern.compile("#(\\d+) @ (\\d+),(\\d+): (\\d+)x(\\d+)");
@@ -36,13 +36,13 @@ public class ChallengeMain extends DayChallenge {
 
 			for (int w1 = 0; w1 < w; w1++) {
 				for (int h1 = 0; h1 < h; h1++) {
-					if (fabricIds[(y + h1) * 1000 + (x + w1)] != 0) {
+					if (fabricIds[y + h1][x + w1] != 0) {
 						uniqueIds.remove(i);
-						uniqueIds.remove(fabricIds[(y + h1) * 1000 + (x + w1)]);
+						uniqueIds.remove(fabricIds[y + h1][x + w1]);
 					}
 
-					fabric[(y + h1) * 1000 + (x + w1)]++;
-					fabricIds[(y + h1) * 1000 + (x + w1)] = i;
+					fabric[y + h1][x + w1]++;
+					fabricIds[y + h1][x + w1] = i;
 				}
 			}
 		}
@@ -50,7 +50,7 @@ public class ChallengeMain extends DayChallenge {
 		int duplicates = 0;
 		for (int x = 0; x != 1000; x++) {
 			for (int y = 0; y != 1000; y++) {
-				if (fabric[y * 1000 + x] > 1) duplicates++;
+				if (fabric[y][x] > 1) duplicates++;
 			}
 		}
 
